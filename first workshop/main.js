@@ -84,6 +84,7 @@ function createPlayerScoreboard(playerName) {
 }
 
 const resetButton = document.querySelector("#resetScore");
+//Folosesc ca sa resetez toate informatiile
 
 resetButton.addEventListener("click", function (event) {
   event.preventDefault();
