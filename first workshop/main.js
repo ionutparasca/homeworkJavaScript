@@ -9,10 +9,9 @@ form.addEventListener("submit", (event) => {
   const playerName = input.value.trim();
   if (!playerName) return;
   createPlayerScoreboard(playerName);
-  input.value = ""; // Curăță câmpul după adăugarea unui jucător
+  input.value = "";
 });
 
-// Variabila pentru stocarea scorurilor
 let playerScores = {};
 
 function createPlayerScoreboard(playerName) {
@@ -36,10 +35,8 @@ function createPlayerScoreboard(playerName) {
   playerScoreElement.textContent = "0";
   playerDiv.appendChild(playerScoreElement);
 
-  // Inițializare scor pentru jucător
   playerScores[playerName] = 0;
 
-  // Butoane pentru modificarea scorului
   const addButton = document.createElement("button");
   addButton.textContent = "+1 punct";
   playerDiv.appendChild(addButton);
@@ -60,7 +57,6 @@ function createPlayerScoreboard(playerName) {
   resetButton.textContent = "Reset scor";
   playerDiv.appendChild(resetButton);
 
-  // Evenimente pentru butoane
   addButton.addEventListener("click", function () {
     playerScores[playerName]++;
     playerScoreElement.textContent = playerScores[playerName];
@@ -89,7 +85,7 @@ function createPlayerScoreboard(playerName) {
 
 const resetButton = document.querySelector("#resetScore");
 
-resetButton.addEventListener("click", (event) => {
-  event.preventDefault(); // Previne trimiterea formularului
-  playersContainer.innerHTML = ""; // Șterge toți jucătorii din container
+resetButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  playersContainer.innerHTML = "";
 });
