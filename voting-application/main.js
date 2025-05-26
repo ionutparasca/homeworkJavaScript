@@ -21,21 +21,23 @@ function afiseazaOptiuni() {
 
     let titlu = document.createElement("h3");
     titlu.textContent = optiune.nume;
+    card.appendChild(titlu);
 
     let voturi = document.createElement("p");
     voturi.textContent = "Voturi: ...";
     voturi.id = "count-" + optiune.id;
+    card.appendChild(voturi);
 
     let buton = document.createElement("button");
     buton.textContent = "Adaugă vot";
     buton.id = "btn-" + optiune.id;
-
-    card.appendChild(titlu);
-    card.appendChild(voturi);
+    buton.addEventListener("click", () => {
+      inregistreazaVot(optiune.id);
+    });
     card.appendChild(buton);
+
     container.appendChild(card);
   }
-
   preiaVoturi();
 }
 
@@ -75,3 +77,40 @@ function preiaVoturi() {
 }
 
 afiseazaOptiuni();
+
+function inregistreazaVot(idOptiune) {
+  const buton = document.getElementById("btn-" + idOptiune);
+  const pargraf = document.getElementById("count-" + idOptiune);
+
+  buton.disabled = true;
+  buton.textContent = "Se încarcă...";
+
+  const url = `https://api.api-ninjas.com/v1/counter?id=${idOptiune}&hit=true`;
+
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "X-Api-Key": API_KEY,
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Eroare la votare");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Vot înregistrat pentru", idOptiune, "->", data);
+
+      pargraf.textContent = "Voturi: " + data.value;
+    })
+    .catch((error) => {
+      console.error("Eroare la trimiterea votului:", error);
+      alert("A apărut o eroare. Încearcă din nou.");
+    })
+    .finally(() => {
+      buton.disabled = false;
+      buton.textContent = "Adaugă vot";
+    });
+}
