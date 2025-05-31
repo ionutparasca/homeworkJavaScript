@@ -2,10 +2,13 @@ body {
   font-family: Arial, sans-serif;
   padding: 20px;
   background-color: #f9f9f9;
+  margin: 0;
 }
 
 h1 {
   text-align: center;
+  color: #222;
+  margin-bottom: 30px;
 }
 
 .voting-container {
@@ -21,12 +24,33 @@ h1 {
   border-radius: 10px;
   padding: 15px;
   width: 250px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.voting-card:hover {
+  transform: translateY(-3px);
+}
+
+.voting-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
   text-align: center;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.voting-card p {
+  margin: 5px 0 15px;
+  font-weight: bold;
+  color: #555;
+  font-size: 16px;
 }
 
 button {
-  margin-top: 10px;
   padding: 8px 12px;
   font-size: 16px;
   border: none;
@@ -34,8 +58,26 @@ button {
   background-color: #0077cc;
   color: white;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: 100%;
 }
 
 button:hover {
   background-color: #005fa3;
+}
+
+button:active {
+  transform: scale(0.97);
+  background-color: #004f80;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .voting-card {
+    width: 90%;
+  }
 }
